@@ -25,7 +25,7 @@
     methods:{
       openModal(){
         this.$store.commit("addModal")
-      }
+      },
     }
   }
 </script>

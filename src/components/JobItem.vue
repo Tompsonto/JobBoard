@@ -11,18 +11,18 @@
         <v-col cols="3">
           <v-row>
             <v-col cols="12">
-            Junior Manual tester
+            {{items.position_name}}
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
-            Warszawa
+            {{items.location}}
             </v-col>
             </v-row>
         </v-col>
 
         <v-col cols="3">
-          2500 
+          {{items.salary[0]}} - {{items.salary[1]}} 
         </v-col>
 
          <v-col cols="1">
@@ -37,6 +37,6 @@
 <script>
   export default {
     name: 'JobItem',
-
+     props: ['items'],
   }
 </script>

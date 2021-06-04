@@ -5,7 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    add:true,
+    add:false,
+    newOffer:{
+      comp_name:null,
+      logo_url:null,
+      position_name:null,
+      ctegory:null,
+      lvl:null,
+      location:null,
+      salary:{min:null,max:null},
+      desc:null
+    },
     categories:[
       'Frontend',
       'Bakcend',
@@ -32,7 +42,8 @@ export default new Vuex.Store({
   mutations: {
     addModal(state) {
       state.add = !state.add
-  }
+  },
+
   },
   actions: {
     addModal({commit}) {
