@@ -1,37 +1,25 @@
 <template>
-    <v-list-item two-line>
-      <v-list-item-content>
-        <v-row>
-        <v-col cols="2" >
+
+
+ <router-link tag="div" v-bind:to="'job/'+items.id" class="item-div" >
+          <td> 
             <v-img src="http://www.piedpiper.com/app/themes/joystick-v27/images/logo.png" 
               max-height="250"
               max-width="250"></v-img>
-        </v-col>
-
-        <v-col cols="3">
-          <v-row>
-            <v-col cols="12">
+          </td>
+          <td> 
             {{items.position_name}}
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
+          </td>
+          <td>  
             {{items.location}}
-            </v-col>
-            </v-row>
-        </v-col>
-
-        <v-col cols="3">
-          {{items.salary[0]}} - {{items.salary[1]}} 
-        </v-col>
-
-         <v-col cols="1">
-          5 days ago
-         </v-col>
-      </v-row>
-      
-      </v-list-item-content>
-    </v-list-item>
+          </td>
+          <td> 
+            {{items.salary[0]}} - {{items.salary[1]}} 
+          </td>
+          <td>
+             5 days ago
+          </td>
+   </router-link>  
 </template>
 
 <script>
@@ -40,3 +28,13 @@
      props: ['items'],
   }
 </script>
+
+<style scoped>
+.item-div{
+  width:100%;
+      justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+</style>

@@ -1,8 +1,18 @@
 <template>
    <v-card class="mx-auto" max-width="100%" tile>
-     <div v-for="item in items" :key="item.index">
-       <JobItem :items="item"/>
-     </div>
+  
+
+ <v-simple-table>
+    <template v-slot:default>
+      <tbody>
+        <tr
+         v-for="item in items" :key="item.index"
+        >
+         <JobItem :items="item"/>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
 
   </v-card>
 </template>
@@ -20,14 +30,15 @@ export default {
     components:{
         JobItem
     },
-    created(){
-      db.collection("products").get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) =>{
-      this.items.push(doc.data());
+
+  mounted(){
+    db.collection("products").orderBy('createdOn').onSnapshot(snapshot =>{
+      snapshot.forEach(doc =>{
+        let job = doc.data()
+        job.id = doc.id
+        this.items.push(job)
+      })
     })
-    }).catch(function(error) {
-    console.log("Error getting document:", error);
-    });
   }
   
   }

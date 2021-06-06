@@ -1,10 +1,10 @@
 <template>
  <div class="text-center">
     <v-dialog
-    v-model="this.$store.state.add"
+      v-model="this.$store.state.add"
       width="700"
-      @click:outside="this.openModal"
-    >
+      @click:outside="this.openModal">
+
       <v-card>
         <v-card-title class="headline grey lighten-2">
           Add new Job!
@@ -86,8 +86,7 @@
       </v-row>
   </v-form>
   </v-container>
-        <v-divider></v-divider>
-
+      <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -118,7 +117,8 @@ import { VueEditor } from "vue2-editor";
             lvl:null,
             location:null,
             salary: [1000, 5000],
-            desc:null
+            desc:null,
+            createdOn: new Date(),
         }
       }
     },
