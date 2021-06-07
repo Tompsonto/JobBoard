@@ -4,9 +4,11 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
+    
+         <router-link tag="div" to="/" class="d-flex align-center" >
           JobBoard
-      </div>
+         </router-link>
+      
 
       <v-spacer></v-spacer>
       <v-btn

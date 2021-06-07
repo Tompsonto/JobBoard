@@ -5,9 +5,9 @@
       <tbody>
         <tr>
          <td> 
-             <v-img src="http://www.piedpiper.com/app/themes/joystick-v27/images/logo.png" 
-              max-height="250"
-              max-width="250"></v-img>
+            <v-img :src="feed.image" 
+            max-height="250"
+            max-width="250"></v-img>
          </td>
          <td> 
            <div class="text-h2"> {{feed.position_name}}</div>

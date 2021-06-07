@@ -35,8 +35,9 @@
         </v-col>
 
         <v-col cols="6 image">
-          <div class="preview"></div>
-           <input type="file" />
+             <img class="preview" v-if="job.image" :src="job.image" />
+             <img class="preview"  v-else />
+           <input type="file" @change="uploadImage" />
         </v-col>
 
         <v-col cols="3">
@@ -103,23 +104,25 @@
 </template>
 
 <script>
-import {db} from '../firebaseConfig.js'
+import {fb,db} from '../firebaseConfig.js'
 import { VueEditor } from "vue2-editor";
+
   export default {
     name: 'AddModal',
     data(){
       return{
         job:{
             company_name:null,
-            url:null,
+            image:null,
             position_name:null,
             category:null,
-            lvl:null,
+            logo:null,
             location:null,
             salary: [1000, 5000],
             desc:null,
             createdOn: new Date(),
-        }
+        },
+        file:null
       }
     },
     components: {
@@ -130,10 +133,14 @@ import { VueEditor } from "vue2-editor";
         this.$store.commit("addModal")
       },
 
-      onFileChange(e) {
-        const file = e.target.files[0];
-        this.job.url = URL.createObjectURL(file);
+      uploadImage(e){
+         this.file = e.target.files[0];
+         this.job.image = URL.createObjectURL(this.file);
+        //let storageRef = fb.storage().ref('logos/'+file.name);
+
+      // let uploadTask =  storageRef.put(file);
       },
+
       addJob(){
           db.collection("products").add(this.job)
             .then(function() {
@@ -142,6 +149,21 @@ import { VueEditor } from "vue2-editor";
             .catch(function(error) {
                 console.error("Error writing document: ", error);
               });
+
+            
+            const storageRef = fb.storage().ref(`${this.file.name}`).put(this.file);
+            storageRef.on(`state_changed`, snapshot=>{
+              this.uploadValue = (snapshot.bytesTranferred/snapshot.totalBytes)*100;
+            }, error=>{
+              console.log(error.message)},
+            ()=>{this.uploadValue=100;
+              storageRef.snapshot.ref.getDownloadURL().then((url)=>{
+                this.job.image = url
+              });
+              }
+              );
+      
+   
       }
     }
   }
@@ -157,8 +179,9 @@ import { VueEditor } from "vue2-editor";
 .image .preview{
   width:100px;
   height:100px;
-  background: gray;
+  object-fit: cover;
   margin:15px;
+  background: gray;
 }
 
 </style>

@@ -1,18 +1,9 @@
 <template>
    <v-card class="mx-auto" max-width="100%" tile>
-  
+    <div v-for="item in items" :key="item.index" style="display:flex; flex-direction:column">
+      <JobItem :items="item"/>
+    </div>
 
- <v-simple-table>
-    <template v-slot:default>
-      <tbody>
-        <tr
-         v-for="item in items" :key="item.index"
-        >
-         <JobItem :items="item"/>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
 
   </v-card>
 </template>

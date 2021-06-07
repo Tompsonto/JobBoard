@@ -1,7 +1,6 @@
 <template>
-  <v-app-bar>
+<v-toolbar style="padding:15px;">
     <v-form >
-    <v-container>
       <v-row>
         <v-col cols="3" >
           <v-select v-model="category_select" :items="categories" label="category"> </v-select>
@@ -19,9 +18,9 @@
            <v-btn>Search</v-btn>
          </v-col>
       </v-row>
-    </v-container>
+
   </v-form>
-    </v-app-bar>
+</v-toolbar>
 </template>
 
 <script>
