@@ -1,12 +1,12 @@
 <template>
-<v-toolbar style="padding:15px;">
+<v-toolbar flat style="padding:15px; display:flex; justify-content:center">
     <v-form >
       <v-row>
-        <v-col cols="3" >
+        <v-col cols="4" >
           <v-select v-model="category_select" :items="categories" label="category"> </v-select>
         </v-col>
 
-        <v-col cols="3">
+        <v-col cols="4">
           <v-select v-model="city_select" :items="cities" label="location"> </v-select>
         </v-col>
 

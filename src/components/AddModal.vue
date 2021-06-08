@@ -70,13 +70,29 @@
           <v-select v-model="job.location" :items="this.$store.state.locations" label="Location"> </v-select>
         </v-col>
 
-        <v-col cols="8">
+
+        <v-col cols="1">
+         <span>
+            {{job.salary[0]}}
+          </span>
+        </v-col>
+        <v-col cols="6">
+       
           <v-range-slider
           hint="Salary range"
+           step="10"
           max="50000"
           min="500"
           v-model="job.salary"
-          ></v-range-slider>
+         
+          >
+          </v-range-slider>
+           
+        </v-col>
+        <v-col cols="1">
+         <span>
+            {{job.salary[1]}}
+          </span>
         </v-col>
       </v-row>
       <!--full desc-->
@@ -116,7 +132,6 @@ import { VueEditor } from "vue2-editor";
             image:null,
             position_name:null,
             category:null,
-            logo:null,
             location:null,
             salary: [1000, 5000],
             desc:null,
@@ -142,7 +157,7 @@ import { VueEditor } from "vue2-editor";
       },
 
       addJob(){
-          db.collection("products").add(this.job)
+          db.collection("jobs").add(this.job)
             .then(function() {
                 console.log("Document successfully written!");
                 })

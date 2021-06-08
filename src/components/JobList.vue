@@ -1,11 +1,11 @@
 <template>
-   <v-card class="mx-auto" max-width="100%" tile>
+   <v-container class="mx-auto" max-width="75%"  style="margin-top:25px">
     <div v-for="item in items" :key="item.index" style="display:flex; flex-direction:column">
       <JobItem :items="item"/>
     </div>
 
 
-  </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -23,14 +23,18 @@ export default {
     },
 
   mounted(){
-    db.collection("products").orderBy('createdOn').onSnapshot(snapshot =>{
-      snapshot.forEach(doc =>{
+    db.collection("jobs").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) =>{
         let job = doc.data()
         job.id = doc.id
         this.items.push(job)
+
       })
-    })
-  }
+    }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });
+ }
+  
   
   }
 </script>

@@ -1,17 +1,18 @@
 <template>
 <v-card
-  elevation="2"
+  elevation="2" style="margin-top:15px; padding:15px"
   outlined
   tile>
   <router-link tag="div" v-bind:to="'job/'+items.id">
   
-    <v-row align="center" justify="center">
+    <v-row align="center" justify="left">
+      <v-col cols="1"></v-col>
       <v-col cols="2" >
         <v-img :src="items.image" 
               max-height="100"
               max-width="100"></v-img>
       </v-col>
-      <v-col cols="4"  >
+      <v-col cols="5"  >
         <p class="text-h4 position">{{items.position_name}}</p>  
         <p class="text-h6 green--text salary">{{items.salary[0]}} - {{items.salary[1]}} PLN </p>
       </v-col>
