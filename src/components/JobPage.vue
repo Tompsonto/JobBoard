@@ -24,7 +24,7 @@
       </v-col>
     </v-row>
   </v-container>
-  <v-btn color="primary" large >Apply</v-btn>
+  <v-btn color="primary" large justify="center">Apply</v-btn>
   </v-card>
 </template>
 

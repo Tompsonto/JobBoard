@@ -35,7 +35,7 @@
         </v-col>
 
         <v-col cols="6 image">
-             <img class="preview" v-if="job.image" :src="job.image" />
+             <img class="preview" v-if="temp" :src="temp" />
              <img class="preview"  v-else />
            <input type="file" @change="uploadImage" />
         </v-col>
@@ -120,8 +120,9 @@
 </template>
 
 <script>
-import {fb,db} from '../firebaseConfig.js'
+import {fb, db} from '../firebaseConfig.js'
 import { VueEditor } from "vue2-editor";
+
 
   export default {
     name: 'AddModal',
@@ -137,6 +138,7 @@ import { VueEditor } from "vue2-editor";
             desc:null,
             createdOn: new Date(),
         },
+        temp:null,
         file:null
       }
     },
@@ -149,36 +151,28 @@ import { VueEditor } from "vue2-editor";
       },
 
       uploadImage(e){
-         this.file = e.target.files[0];
-         this.job.image = URL.createObjectURL(this.file);
-        //let storageRef = fb.storage().ref('logos/'+file.name);
-
-      // let uploadTask =  storageRef.put(file);
+        this.file = e.target.files[0];
+        this.temp = URL.createObjectURL(this.file);
       },
 
-      addJob(){
-          db.collection("jobs").add(this.job)
-            .then(function() {
-                console.log("Document successfully written!");
-                })
-            .catch(function(error) {
-                console.error("Error writing document: ", error);
-              });
+    async addJob(){
+        let storageRef = fb.storage().ref('logos/'+this.file.name);
+        let uploadTask = storageRef.put(this.file)
 
-            
-            const storageRef = fb.storage().ref(`${this.file.name}`).put(this.file);
-            storageRef.on(`state_changed`, snapshot=>{
-              this.uploadValue = (snapshot.bytesTranferred/snapshot.totalBytes)*100;
-            }, error=>{
-              console.log(error.message)},
-            ()=>{this.uploadValue=100;
-              storageRef.snapshot.ref.getDownloadURL().then((url)=>{
-                this.job.image = url
-              });
-              }
-              );
-      
-   
+      await uploadTask.snapshot.ref.getDownloadURL().then((downloadURL)=>{
+          this.job.image = downloadURL
+          console.log(downloadURL)
+        })
+          
+       await db.collection("jobs").add(this.job)
+          .then(function() {
+            console.log("Document successfully written!");
+          })
+          .catch(function(error) {
+            console.error("Error writing document: ", error);
+          })
+
+          this.openModal
       }
     }
   }

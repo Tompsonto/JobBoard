@@ -1,26 +1,5 @@
 <template>
-<v-toolbar flat style="padding:15px; display:flex; justify-content:center">
-    <v-form >
-      <v-row>
-        <v-col cols="4" >
-          <v-select v-model="category_select" :items="categories" label="category"> </v-select>
-        </v-col>
-
-        <v-col cols="4">
-          <v-select v-model="city_select" :items="cities" label="location"> </v-select>
-        </v-col>
-
-        <v-col cols="3">
-          <v-select v-model="lvl_select" :items="lvls" label="Level"> </v-select>
-        </v-col>
-
-         <v-col cols="1">
-           <v-btn>Search</v-btn>
-         </v-col>
-      </v-row>
-
-  </v-form>
-</v-toolbar>
+<div></div>
 </template>
 
 <script>
@@ -48,6 +27,11 @@
           'Mid',
           'Senior'
         ]
+      }
+    },
+    methods:{
+      filter(){
+        this.$emit(this.city_select, this.lvl_select, this.category_select)
       }
     }
   }
