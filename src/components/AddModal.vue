@@ -2,7 +2,7 @@
  <div class="text-center">
     <v-dialog
       v-model="this.$store.state.add"
-      width="700"
+      style="width:90vw"
       @click:outside="this.openModal">
 
       <v-card>
@@ -10,19 +10,95 @@
           Add new Job!
         </v-card-title>
 
-  <v-container>
-    <v-form @submit.prevent >
-    <!--company fields-->
+<v-container>
+  <v-form 
+    v-model="valid"
+    lazy-validation
+    @submit.prevent>
+    <v-row>
+      <v-col cols="5">
+        <v-row>
+          <v-col cols="12">
+             <p class="text-h4 position">Company details</p>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12">
+             <v-text-field
+            v-model="job.company_name"
+            :rules="companyNameRule"
+            label="Company name"
+            required
+          ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+           <v-col cols="12 image">
+             <img class="preview" v-if="temp" :src="temp" />
+             <img class="preview"  v-else />
+           <input type="file" @change="uploadImage" />
+        </v-col>
+       </v-row>
       <v-row>
+          <v-col cols="12">
+             <p class="text-h4 position">Offer details</p>
+          </v-col>
+        </v-row>
+       <v-row>
+         <v-col cols="12">
+            <v-text-field
+            v-model="job.position_name"
+            label="Position name"
+            required
+          ></v-text-field>
+         </v-col>
+       </v-row>
+
+        <v-row>
+         <v-col cols="12">
+            <v-select required v-model="job.category" :items="this.$store.state.categories" label="category"> </v-select>
+         </v-col>
+       </v-row>
+
+        <v-row>
+         <v-col cols="12">
+             <v-select required v-model="job.lvl" :items="this.$store.state.lvl" label="Lvl"> </v-select>
+         </v-col>
+       </v-row>
+
+        <v-row>
+         <v-col cols="12">
+            <v-select required v-model="job.location" :items="this.$store.state.locations" label="Location"> </v-select>
+         </v-col>
+       </v-row>
+      </v-col>
+      <v-col cols="1"></v-col>
+      <v-col cols="5">
+        <v-row>
+          <v-col cols="12">
+             <p class="text-h4 position">Offer describtion</p>
+          </v-col>
+        </v-row>
+         <v-row>
+          <v-col cols="12">
+             <vue-editor v-model="job.desc" style="height:100%"></vue-editor>
+          </v-col>
+        </v-row>
+        
+      </v-col>
+    </v-row>
+  </v-form>
+</v-container>
+
+
+ <!-- <v-container>
+    <v-form @submit.prevent >
+     <v-row>
         <v-col cols="3">
         </v-col>
 
         <v-col cols="6" >
-         <v-text-field
-            v-model="job.company_name"
-            label="Company name"
-            required
-          ></v-text-field>
+         
         </v-col>
 
         <v-col cols="3"> 
@@ -45,8 +121,7 @@
 
       </v-row>
     
-   <!--position basics-->  
-      <v-row>
+    <v-row>
         <v-col cols="5" >
          <v-text-field
             v-model="job.position_name"
@@ -56,18 +131,17 @@
         </v-col>
 
         <v-col cols="4">
-            <v-select v-model="job.category" :items="this.$store.state.categories" label="category"> </v-select>
+            <v-select required v-model="job.category" :items="this.$store.state.categories" label="category"> </v-select>
         </v-col>
 
         <v-col cols="3">
-            <v-select v-model="job.lvl" :items="this.$store.state.lvl" label="Lvl"> </v-select>
+            <v-select required v-model="job.lvl" :items="this.$store.state.lvl" label="Lvl"> </v-select>
         </v-col>
       </v-row>
 
-     <!--position details-->  
-      <v-row>
+   <v-row>
         <v-col cols="4" >
-          <v-select v-model="job.location" :items="this.$store.state.locations" label="Location"> </v-select>
+          <v-select required v-model="job.location" :items="this.$store.state.locations" label="Location"> </v-select>
         </v-col>
 
 
@@ -95,8 +169,8 @@
           </span>
         </v-col>
       </v-row>
-      <!--full desc-->
-      <v-row>
+    
+     <v-row>
         <v-col cols="12">
          <vue-editor v-model="job.desc"></vue-editor>
         </v-col>
@@ -113,7 +187,7 @@
           >
             Add
           </v-btn>
-        </v-card-actions>
+        </v-card-actions>-->
       </v-card>
     </v-dialog>
   </div>
