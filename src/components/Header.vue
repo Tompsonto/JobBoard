@@ -2,6 +2,7 @@
      <v-app-bar
       app
       flat
+      class="blue-grey lighten-5"
     >
     <router-link tag="div" to="/" class="d-flex align-center text-h4" >
       Job<b>Board</b>
