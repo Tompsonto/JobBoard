@@ -8,13 +8,16 @@
       Job<b>Board</b>
     </router-link>
       <v-spacer></v-spacer>
-      <v-btn
+      <router-link tag="div" to="/addjob" class="d-flex align-center text-h4" >
+            <v-btn
       color="primary"
         elevation="2"
         rounded
         @click="this.openModal"
        
       >Add job</v-btn>
+      </router-link>
+
     </v-app-bar>
 </template>
 

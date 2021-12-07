@@ -1,20 +1,9 @@
 
-
-export const state = {
-    add:false,
-    newOffer:{
-      comp_name:null,
-      logo_url:null,
-      position_name:null,
-      ctegory:null,
-      lvl:null,
-      location:null,
-      salary:{min:null,max:null},
-      desc:null
-    },
-    categories:[
+const filters = {
+  state:{     
+  categories:[
       'Frontend',
-      'Bakcend',
+      'Backend',
       'Fullstack',
       'Testing',
       'PM',
@@ -28,24 +17,8 @@ export const state = {
       'Mid',
       'Senior'
     ],
-    locations:[
-      'Warsaw',
-      'Lodz',
-      'Wroclaw',
-      'Gdansk'
-    ]
-  },
-  mutations: {
-    addModal(state) {
-      state.add = !state.add
-  },
 
   },
-  actions: {
-    addModal({commit}) {
-      commit('addModal')
-  }
-  },
-  modules: {
-  }
-})
+}
+
+  export default filters

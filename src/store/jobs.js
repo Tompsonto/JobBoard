@@ -1,55 +1,28 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+import {db} from '../firebaseConfig'
+const jobs = {
   state: {
-    add:false,
-    newOffer:{
-      comp_name:null,
-      logo_url:null,
-      position_name:null,
-      ctegory:null,
-      lvl:null,
-      location:null,
-      salary:{min:null,max:null},
-      desc:null
+    allJobs:[]
+  },
+  actions:{
+    getAllJobs({ commit, state }){
+      state.allJobs = [];
+      db.collection("jobs").onSnapshot((querySnapshot) => {
+          querySnapshot.forEach((doc) =>{
+            let jobs = doc.data()
+            jobs.id = doc.id
+            commit('pushAllJobs',jobs)
+          })
+          
+      })
     },
-    categories:[
-      'Frontend',
-      'Bakcend',
-      'Fullstack',
-      'Testing',
-      'PM',
-      'Android',
-      'AI',
-      'Blockchain'
-    ],
-    lvl:[
-      'Intern',
-      'Junior',
-      'Mid',
-      'Senior'
-    ],
-    locations:[
-      'Warsaw',
-      'Lodz',
-      'Wroclaw',
-      'Gdansk'
-    ]
   },
-  mutations: {
-    addModal(state) {
-      state.add = !state.add
-  },
+  mutations:{
+    pushAllJobs(state, val){
+        state.allJobs.push(val)
+    },
+  }
 
-  },
-  actions: {
-    addModal({commit}) {
-      commit('addModal')
-  }
-  },
-  modules: {
-  }
-})
+}
+
+export default jobs
